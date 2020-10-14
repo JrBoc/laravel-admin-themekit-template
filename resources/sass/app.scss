@@ -1,0 +1,48 @@
+// Icons and Fonts
+@import "~icon-kit/dist/css/iconkit";
+@import "~@fortawesome/fontawesome-free/scss/brands";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+// BS 4.1.2
+@import "~bootstrap/scss/bootstrap";
+@import "~perfect-scrollbar/css/perfect-scrollbar";
+// DataTables
+@import "~datatables.net-bs4/css/dataTables.bootstrap4.css";
+// Select2
+@import "~select2/dist/css/select2.css";
+// ThemeKit
+@import "~themekit/src/scss/theme";
+// fix warning goto main.scss
+// look for (end) -> (flex-end)
+@import "~animate.css";
+// Configs
+@import "./configs/datatables.scss";
+@import "./configs/swal.scss";
+
+body {
+    overflow-y: scroll;
+    background-color: #f6f7fb;
+}
+
+.w-49 {
+    width: 49%;
+}
+
+.w-32 {
+    width: 32%;
+}
+
+.w-1 {
+    width: 1%;
+}
+
+.form-control:disabled {
+    cursor: not-allowed;
+    opacity: 1;
+    color: black !important;
+}
+
+.cursor-hand {
+    cursor: pointer;
+}
