@@ -7,7 +7,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name') }}</title>
-    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800" rel="stylesheet">
     <link rel="icon" href="{{ asset('favicon.ico') }}" />
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     @livewireStyles
@@ -32,6 +31,7 @@
     </div>
     @livewireScripts
     <script src="{{ mix('js/alpine.js') }}"></script>
+    <script src="{{ mix('js/login.js') }}"></script>
     @stack('scripts')
     @stack('after_scripts')
 </body>

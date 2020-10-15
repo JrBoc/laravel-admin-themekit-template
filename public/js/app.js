@@ -64117,7 +64117,7 @@ module.exports = function(module) {
 try {
   window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
   window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-  window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+  window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js")["default"];
   window.PerfectScrollbar = __webpack_require__(/*! perfect-scrollbar */ "./node_modules/perfect-scrollbar/dist/perfect-scrollbar.esm.js")["default"];
   window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
@@ -64160,17 +64160,17 @@ $.fn.modal.Constructor.prototype.enforceFocus = function () {};
 
 $.ajaxSetup({
   headers: {
-    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
   }
 });
 $(function () {
-  $(document).on("click", function () {
-    $('[data-toggle="tooltip"]').tooltip("hide");
+  $(document).on('click', function () {
+    $('[data-toggle="tooltip"]').tooltip('hide');
   });
   $('[data-toggle="tooltip"]').tooltip({
-    container: "body",
-    boundary: "window",
-    trigger: "hover"
+    container: 'body',
+    boundary: 'window',
+    trigger: 'hover'
   });
 });
 
@@ -64185,7 +64185,7 @@ $(function () {
 
 $.extend($.fn.dataTable.defaults, {
   responsive: true,
-  pagingType: "input",
+  pagingType: 'input',
   searching: false,
   lengthChange: false,
   language: {
@@ -64201,26 +64201,26 @@ $.extend($.fn.dataTable.defaults, {
   orderMulti: false,
   filtering: false
 });
-$("table").on("draw.dt", function () {
+$('table').on('draw.dt', function () {
   $('[data-toggle="tooltip"]').tooltip({
-    container: "body",
-    boundary: "window"
+    container: 'body',
+    boundary: 'window'
   });
-  $(document).find(".dataTables_paginate").addClass("pagination justify-content-center justify-content-md-end");
+  $(document).find('.dataTables_paginate').addClass('pagination justify-content-center justify-content-md-end');
   var spanIndex = 0;
-  $(document).find(".dataTables_paginate").children().each(function () {
+  $(document).find('.dataTables_paginate').children().each(function () {
     var span = $(this);
 
     if ([2, 4, 5].includes(spanIndex)) {
-      span.addClass("pt-10");
+      span.addClass('pt-10');
 
       if (spanIndex == 5) {
-        span.addClass("pl-1");
+        span.addClass('pl-1');
       }
     }
 
     if (spanIndex == 6) {
-      span.removeClass("page-item");
+      span.removeClass('page-item');
     }
 
     spanIndex++;
@@ -64278,6 +64278,32 @@ Livewire.on('msg', function (msg) {
 Livewire.on('closeDialogBox', function () {
   SwalLoading.close();
 });
+Livewire.onError(function (status_code) {
+  $('.modal').modal('hide');
+  SwalConfirm.close();
+  SwalLoading.close();
+
+  switch (status_code) {
+    case 404:
+      SwalMessage.fire({
+        icon: 'error',
+        title: 'Selected Resource Not Found'
+      });
+      return false;
+
+    case 413:
+      setTimeout(function () {
+        location.reload(true);
+      }, 30000);
+      SwalTimeOut.fire().then(function () {
+        location.reload(true);
+      });
+      return false;
+
+    default:
+      return true;
+  }
+});
 
 /***/ }),
 
@@ -64291,15 +64317,15 @@ Livewire.on('closeDialogBox', function () {
 var Swal = window.Swal = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 
 var SwalConfirm = window.SwalConfirm = Swal.mixin({
-  title: "Confirmation",
-  icon: "question",
+  title: 'Confirmation',
+  icon: 'question',
   customClass: {
-    confirmButton: "btn btn-outline-primary w-49",
-    cancelButton: "btn btn-light w-49",
-    actions: "swal2-actions-space-between"
+    confirmButton: 'btn btn-outline-primary w-49',
+    cancelButton: 'btn btn-light w-49',
+    actions: 'swal2-actions-space-between'
   },
-  confirmButtonText: "YES",
-  cancelButtonText: "NO",
+  confirmButtonText: 'YES',
+  cancelButtonText: 'NO',
   showCancelButton: true,
   scrollbarPadding: false,
   focusConfirm: true,
@@ -64307,18 +64333,18 @@ var SwalConfirm = window.SwalConfirm = Swal.mixin({
   allowEnterKey: true,
   allowOutsideClick: false,
   showClass: {
-    popup: "animated fadeInDown faster"
+    popup: 'animated fadeInDown faster'
   },
   hideClass: {
-    popup: "animated fadeOutUp faster"
+    popup: 'animated fadeOutUp faster'
   }
 });
 var SwalLoading = window.SwalLoading = Swal.mixin({
   showClass: {
-    popup: "animated fadeInDown faster"
+    popup: 'animated fadeInDown faster'
   },
   hideClass: {
-    popup: "animated fadeOutUp faster"
+    popup: 'animated fadeOutUp faster'
   },
   showCancelButton: false,
   showConfirmButton: false,
@@ -64331,20 +64357,41 @@ var SwalLoading = window.SwalLoading = Swal.mixin({
 });
 var SwalMessage = window.SwalMessage = Swal.mixin({
   customClass: {
-    confirmButton: "btn btn-outline-primary btn-block",
-    actions: "swal2-actions-flex-end"
+    confirmButton: 'btn btn-outline-primary btn-block',
+    actions: 'swal2-actions-flex-end'
   },
-  confirmButtonText: "OK",
+  confirmButtonText: 'OK',
   showCancelButton: false,
   buttonsStyling: false,
   scrollbarPadding: false,
   focusConfirm: true,
   allowOutsideClick: false,
   showClass: {
-    popup: "animated fadeInDown faster"
+    popup: 'animated fadeInDown faster'
   },
   hideClass: {
-    popup: "animated fadeOutUp faster"
+    popup: 'animated fadeOutUp faster'
+  }
+});
+var SwalTimeOut = window.SwalTimeOut = Swal.mixin({
+  title: 'Session expired due to page inactivity.',
+  text: 'Page will refresh shortly',
+  customClass: {
+    confirmButton: 'btn btn-outline-primary btn-block',
+    actions: 'swal2-actions-flex-end'
+  },
+  icon: 'info',
+  confirmButtonText: 'REFRESH',
+  showCancelButton: false,
+  buttonsStyling: false,
+  scrollbarPadding: false,
+  focusConfirm: true,
+  allowOutsideClick: false,
+  showClass: {
+    popup: 'animated fadeInDown faster'
+  },
+  hideClass: {
+    popup: 'animated fadeOutUp faster'
   }
 });
 $(document).keyup(function (e) {

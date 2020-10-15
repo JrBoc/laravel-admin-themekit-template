@@ -1,6 +1,6 @@
 // requires SWAL.js
 
-Livewire.on('openModal', function (mdl) {
+Livewire.on('openModal', function(mdl) {
     SwalLoading.close();
 
     if (!$(mdl.id).hasClass('show')) {
@@ -9,12 +9,14 @@ Livewire.on('openModal', function (mdl) {
 
     if (mdl.hasOwnProperty('title')) {
         if (mdl.title != null) {
-            $(mdl.id).find('.modal-title').html(mdl.title);
+            $(mdl.id)
+                .find('.modal-title')
+                .html(mdl.title);
         }
     }
 });
 
-Livewire.on('closeModal', function (mdl) {
+Livewire.on('closeModal', function(mdl) {
     if (mdl == null) {
         return $('.modal').modal('hide');
     }
@@ -26,7 +28,7 @@ Livewire.on('closeModal', function (mdl) {
     }
 });
 
-Livewire.on('msg', function (msg) {
+Livewire.on('msg', function(msg) {
     SwalConfirm.close();
     SwalLoading.close();
 
@@ -38,10 +40,39 @@ Livewire.on('msg', function (msg) {
 
     SwalMessage.fire({
         text: msg.message,
-        icon: (status) ? 'success' : 'error',
+        icon: status ? 'success' : 'error'
     });
 });
 
-Livewire.on('closeDialogBox', function () {
+Livewire.on('closeDialogBox', function() {
     SwalLoading.close();
+});
+
+Livewire.onError(function(status_code) {
+    $('.modal').modal('hide');
+
+    SwalConfirm.close();
+    SwalLoading.close();
+
+    switch (status_code) {
+        case 404:
+            SwalMessage.fire({
+                icon: 'error',
+                title: 'Selected Resource Not Found'
+            });
+
+            return false;
+        case 413:
+            setTimeout(function() {
+                location.reload(true);
+            }, 30000);
+
+            SwalTimeOut.fire().then(function() {
+                location.reload(true);
+            });
+
+            return false;
+        default:
+            return true;
+    }
 });

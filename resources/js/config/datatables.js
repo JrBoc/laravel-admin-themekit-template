@@ -1,6 +1,6 @@
 $.extend($.fn.dataTable.defaults, {
     responsive: true,
-    pagingType: "input",
+    pagingType: 'input',
     searching: false,
     lengthChange: false,
     language: {
@@ -20,35 +20,36 @@ $.extend($.fn.dataTable.defaults, {
     filtering: false
 });
 
-$("table").on("draw.dt", function() {
+$('table').on('draw.dt', function() {
     $('[data-toggle="tooltip"]').tooltip({
-        container: "body",
-        boundary: "window"
+        container: 'body',
+        boundary: 'window'
     });
 
     $(document)
-        .find(".dataTables_paginate")
-        .addClass("pagination justify-content-center justify-content-md-end");
+        .find('.dataTables_paginate')
+        .addClass('pagination justify-content-center justify-content-md-end');
 
     let spanIndex = 0;
 
     $(document)
-        .find(".dataTables_paginate")
+        .find('.dataTables_paginate')
         .children()
         .each(function() {
             let span = $(this);
 
             if ([2, 4, 5].includes(spanIndex)) {
-                span.addClass("pt-10");
+                span.addClass('pt-10');
 
                 if (spanIndex == 5) {
-                    span.addClass("pl-1");
+                    span.addClass('pl-1');
                 }
             }
 
             if (spanIndex == 6) {
-                span.removeClass("page-item");
+                span.removeClass('page-item');
             }
+
             spanIndex++;
         });
 });

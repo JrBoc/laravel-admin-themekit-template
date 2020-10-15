@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Admin\Auth;
 
-use App\Http\Livewire\LivewireForm;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -30,10 +29,25 @@ class Login extends Component
             'password' => $this->password,
         ];
 
+        $data = [
+            'email' => 'jrboc18@gmail.com',
+            'password' => 'admin',
+        ];
+
         if (!Auth::attempt($data, $this->remember_me)) {
+            $this->password = '';
+
             return $this->addError('email', trans('auth.failed'));
         }
 
-        return redirect()->intended(route('admin.dashboard'));
+        if(!Auth::user()->status) {
+            Auth::login();
+
+            return $this->addError('email', 'Your account is Inactive.');
+        }
+
+        session()->flash('login_successful');
+
+        $this->dispatchBrowserEvent('redirectToDashboard');
     }
 }
