@@ -37,7 +37,7 @@ class Login extends Component
         }
 
         if (!Auth::user()->status) {
-            Auth::login();
+            Auth::logout();
 
             return $this->addError('email', 'Your account is Inactive.');
         }
