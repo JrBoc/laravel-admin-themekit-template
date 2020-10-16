@@ -14,7 +14,7 @@ try {
     require('datatables.net-plugins/pagination/input');
     require('select2');
     require('./plugins/jquery.numeric');
-    require('themekit');
+    require('./plugins/themekit');
 
     require('./config/bootstrap');
     require('./config/swal');
