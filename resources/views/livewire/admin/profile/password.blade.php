@@ -82,8 +82,8 @@
                         @include('inc.invalid-feedback', ['name' => 'new_password_confirmation'])
                     </div>
                     <div class="d-flex justify-content-between">
-                        <button type="submit" x-show="editable" class="btn btn-outline-primary w-49" style="display: none">SUBMIT</button>
-                        <button type="button" x-show="editable" x-on:click="clear()" class="btn btn-light w-49" style="display: none">CANCEL</button>
+                        <button type="submit" x-show="editable" class="btn btn-outline-primary w-49" style="display: none" {{ $editable ? 'disabled="disabled"' : '' }}>SUBMIT</button>
+                        <button type="button" x-show="editable" x-on:click="clear()" class="btn btn-light w-49" style="display: none" {{ $editable ? 'disabled="disabled"' : '' }}>CANCEL</button>
                     </div>
                 </div>
             </div>

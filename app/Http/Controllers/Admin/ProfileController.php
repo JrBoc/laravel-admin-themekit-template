@@ -14,7 +14,7 @@ class ProfileController extends Controller
 
         return view('pages.admin.profile', [
             'user' => $user,
-            'is_super_admin' => in_array('Super Admin', $user->roles->pluck('name')->toArray())
+            'is_super_admin' => in_array('Super Admin', auth()->user()->roles->pluck('name')->toArray())
         ]);
     }
 }

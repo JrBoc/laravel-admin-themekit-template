@@ -11,7 +11,6 @@ class Password extends Component
 {
     use LivewireForm;
 
-    public $user;
     public $current_password = '';
     public $new_password = '';
     public $new_password_confirmation = '';
@@ -19,8 +18,6 @@ class Password extends Component
 
     public function render()
     {
-        $this->get(User::find(auth()->id()));
-
         return view('livewire.admin.profile.password');
     }
 
@@ -31,13 +28,15 @@ class Password extends Component
             'new_password' => 'required|string|min:8|max:30|confirmed',
         ]);
 
-        if (!Hash::check($this->current_password, $this->user->password)) {
+        $user = auth()->user();
+
+        if (!Hash::check($this->current_password, $user->password)) {
             $this->emit('closeDialogBox');
 
             return $this->addError('current_password', 'Current password does not match.');
         }
 
-        if (Hash::check($this->new_password, $this->user->password)) {
+        if (Hash::check($this->new_password, $user->password)) {
             $this->emit('closeDialogBox');
 
             return $this->addError('new_password', 'Please enter a new password. You cannot use existing password.');
@@ -45,7 +44,7 @@ class Password extends Component
 
         $this->editable = false;
 
-        $this->user->update([
+        $user->update([
             'password' => Hash::make($this->new_password),
         ]);
 
@@ -56,15 +55,9 @@ class Password extends Component
         ]);
     }
 
-    public function get(User $user)
-    {
-        $this->user = $user;
-    }
-
     public function clear()
     {
         $this->reset();
         $this->resetErrorBag();
-        $this->get(User::find(auth()->id()));
     }
 }

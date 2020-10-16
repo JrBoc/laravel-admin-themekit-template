@@ -10,6 +10,7 @@ class Login extends Component
     public $email = '';
     public $password = '';
     public $remember_me = false;
+    public $disabled = false;
 
     public function render()
     {
@@ -29,24 +30,21 @@ class Login extends Component
             'password' => $this->password,
         ];
 
-        $data = [
-            'email' => 'jrboc18@gmail.com',
-            'password' => 'admin',
-        ];
-
         if (!Auth::attempt($data, $this->remember_me)) {
             $this->password = '';
 
             return $this->addError('email', trans('auth.failed'));
         }
 
-        if(!Auth::user()->status) {
+        if (!Auth::user()->status) {
             Auth::login();
 
             return $this->addError('email', 'Your account is Inactive.');
         }
 
         session()->flash('login_successful');
+
+        $this->disabled = true;
 
         $this->dispatchBrowserEvent('redirectToDashboard');
     }

@@ -10,20 +10,19 @@ class Edit extends Component
 {
     use LivewireForm;
 
-    public $user;
     public $name = '';
     public $email = '';
     public $editable = false;
 
     public function render()
     {
-        $this->get(User::find(auth()->id()));
-
         return view('livewire.admin.profile.edit');
     }
 
-    public function get(User $user) {
-        $this->user = $user;
+    public function mount()
+    {
+        $user = auth()->user();
+
         $this->name = $user->name;
         $this->email = $user->email;
     }
@@ -32,12 +31,12 @@ class Edit extends Component
     {
         $this->validate([
             'name' => 'required|string',
-            'email' => 'required|email|unique:sys_users,email,' . $this->user->id,
+            'email' => 'required|email|unique:sys_users,email,' . auth()->id(),
         ]);
 
         $this->editable = false;
 
-        $this->user->update([
+        auth()->user()->update([
             'name' => $this->name,
             'email' => $this->email,
         ]);
@@ -51,6 +50,6 @@ class Edit extends Component
     {
         $this->reset();
         $this->resetErrorBag();
-        $this->get(User::find(auth()->id()));
+        $this->mount();
     }
 }
