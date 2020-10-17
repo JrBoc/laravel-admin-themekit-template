@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable;
-    use HasRoles;
+    use HasFactory, Notifiable, HasRoles;
 
     protected $table = 'sys_users';
 
@@ -36,4 +36,5 @@ class User extends Authenticatable
             1 => '<label class="badge badge-success mb-0">Active</label>'
         ][$this->status] ?? '<label class="badge badge-danger mb-0">Unknown Status: '. $this->status .'</label>';
     }
+
 }

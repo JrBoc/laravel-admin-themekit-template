@@ -1,5 +1,5 @@
 # Laravel Admin Template
-Build on Laravel 7
+Build on Laravel 8
 
 Npm dependencies:
 - ThemeKit

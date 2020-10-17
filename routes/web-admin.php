@@ -3,12 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin;
 
-Route::get('login', [Admin\Auth\LoginController::class, 'login'])->name('login')->middleware('guest');
+Route::get('/login', [Admin\Auth\LoginController::class, 'login'])->name('login')->middleware('guest');
 
 Route::middleware('auth')->group(function() {
     Route::get('/dashboard', [Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [Admin\ProfileController::class, 'index'])->name('profile.index');
-    Route::get('logout', [Admin\Auth\LoginController::class, 'logout'])->name('logout');
+    Route::get('/logout', [Admin\Auth\LoginController::class, 'logout'])->name('logout');
 
     Route::prefix('/system')->name('system.')->group(function() {
         Route::get('/user', [Admin\System\UserController::class, 'index'])->name('user.index');
